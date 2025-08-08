@@ -1,0 +1,34 @@
+raceback (most recent call last):
+  File "c:\Work\Python\PDFSummarizer\summarizer.py", line 43, in analyze
+    summary_dict = json.loads(json_text)
+  File "C:\Users\srikk\AppData\Local\Programs\Python\Python313\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\srikk\AppData\Local\Programs\Python\Python313\Lib\json\decoder.py", line 345, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\srikk\AppData\Local\Programs\Python\Python313\Lib\json\decoder.py", line 361, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ~~~~~~~~~~~~~~^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 28 column 32 (char 2887)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\srikk\.vscode\extensions\ms-python.debugpy-2025.10.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\_pydevd_bundle\pydevd_comm.py", line 1245, in internal_evaluate_expression_json
+    pydevd_vars.evaluate_expression(py_db, frame, expression, is_exec=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\srikk\.vscode\extensions\ms-python.debugpy-2025.10.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\_pydevd_bundle\pydevd_vars.py", line 368, in new_func
+    return _run_with_unblock_threads(original_func, py_db, curr_thread, frame, expression, is_exec)
+  File "c:\Users\srikk\.vscode\extensions\ms-python.debugpy-2025.10.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\_pydevd_bundle\pydevd_vars.py", line 333, in _run_with_unblock_threads
+    return _run_with_interrupt_thread(original_func, py_db, curr_thread, frame, expression, is_exec)
+  File "c:\Users\srikk\.vscode\extensions\ms-python.debugpy-2025.10.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\_pydevd_bundle\pydevd_vars.py", line 304, in _run_with_interrupt_thread
+    return original_func(py_db, frame, expression, is_exec)
+  File "c:\Users\srikk\.vscode\extensions\ms-python.debugpy-2025.10.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\_pydevd_bundle\pydevd_vars.py", line 547, in evaluate_expression
+    compiled = _compile_as_exec(expression)
+  File "c:\Users\srikk\.vscode\extensions\ms-python.debugpy-2025.10.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\_pydevd_bundle\pydevd_vars.py", line 411, in _compile_as_exec
+    return compile(expression_to_evaluate, "<string>", "exec", _ASYNC_COMPILE_FLAGS)
+  File "<string>", line 1
+    e.
+      ^
+SyntaxError: invalid syntax

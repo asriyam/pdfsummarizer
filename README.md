@@ -1,0 +1,2 @@
+# pdfsummarizer
+Summarize PDF files
