@@ -48,48 +48,7 @@ def _extract_json(text: str) -> str:
 def create_summary_prompt(paper_text: str) -> str:
     """Create optimized prompt for paper summarization"""
     return f"""
-        You are an expert research analyst. Analyze this academic paper and provide a comprehensive structured summary.
-
-        CRITICAL: Your response must be ONLY valid JSON following the exact schema below.
-
-        Required JSON structure:
-        {{
-            "title": "paper title",
-            "authors": ["author1", "author2"],
-            "abstract": "paper's abstract or executive summary",
-            "research_question": "main research question or objective", 
-            "key_findings": [
-                {{
-                    "finding": "specific finding",
-                    "evidence": "supporting evidence/data",
-                    "page_reference": page_number_or_null,
-                    "significance": "why this finding matters"
-                }}
-            ],
-            "methodology": {{
-                "approach": "overall methodological approach",
-                "data_sources": ["source1", "source2"],
-                "analysis_methods": ["method1", "method2"],
-                "sample_size": "sample size or null",
-                "limitations": ["limitation1", "limitation2"]
-            }},
-            "conclusions": "main conclusions and implications",
-            "limitations": ["limitation1", "limitation2"],
-            "future_research": ["direction1", "direction2"],
-            "citations": [
-                {{
-                    "authors": ["author1", "author2"],
-                    "title": "cited paper title",
-                    "journal": "journal name or null",
-                    "year": year_number_or_null,
-                    "doi": "doi or null",
-                    "page_numbers": "page range or null",
-                    "citation_context": "how this citation is used"
-                }}
-            ],
-            "paper_category": "empirical/theoretical/review/meta-analysis/case-study",
-            "relevance_score": score_1_to_10
-        }}
+        You are an expert research analyst. Analyze this academic paper and provide a comprehensive structured summary using the summarize_paper tool.
 
         ANALYSIS INSTRUCTIONS:
         1. Focus on extracting 3-8 KEY findings (most important results)
@@ -99,11 +58,12 @@ def create_summary_prompt(paper_text: str) -> str:
         5. Assess limitations honestly
         6. Suggest concrete future research directions
         7. Rate relevance/impact on 1-10 scale (10 = groundbreaking)
+        8. Categorize paper as: empirical, theoretical, review, meta-analysis, or case-study
 
         PAPER TEXT:
         {paper_text}
 
-        Analyze thoroughly and return ONLY the JSON response.
+        Use the summarize_paper tool to provide your structured analysis.
         """
 
 def format_summary(summary: PaperSummary) -> str:

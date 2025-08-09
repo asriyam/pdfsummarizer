@@ -7,7 +7,7 @@ from typing import Dict, Any, List, Optional
 from pydantic import BaseModel, Field, ValidationError
 from datetime import datetime
 import os
-from schema import PaperSummary
+from schema import PaperSummary, get_summary_tool_schema
 import helper
 
 class Summarizer: 
@@ -34,24 +34,23 @@ class Summarizer:
                         "role": "user",
                         "content": helper.create_summary_prompt(text)
                     }
-                ]
+                ],
+                tools=[get_summary_tool_schema()],
+                tool_choice={"type": "tool", "name": "summarize_paper"}
             )
 
-            raw_response = response.content[0].text.strip()
-            json_text = helper._extract_json(raw_response)
+            # Extract tool use from response
+            if response.content[0].type == "tool_use":
+                tool_input = response.content[0].input
+                paper_summary = PaperSummary(**tool_input)
+                print("✅ Paper analysis successful!")
+                return paper_summary
+            else:
+                print("❌ No tool use found in response")
+                return None
 
-            summary_dict = json.loads(json_text)
-            paper_summary = PaperSummary(**summary_dict)
-
-            print("✅ Paper analysis successful!")
-            return paper_summary
-
-        except json.JSONDecodeError as e:
-            print(f"❌ JSON parsing error: {e}")
-            # Save the problematic JSON for debugging
-            with open("debug_json.txt", "w", encoding="utf-8") as f:
-                f.write(json_text)
-            print("❌ Saved problematic JSON to debug_json.txt for inspection")
+        except ValidationError as e:
+            print(f"❌ Validation error: {e}")
                 
         except Exception as e:
             print(f"Unexpected error: {e}")

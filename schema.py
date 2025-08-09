@@ -39,3 +39,11 @@ class PaperSummary(BaseModel):
     paper_category: str = Field(..., description="Type of research: empirical, theoretical, review, etc.")
     relevance_score: int = Field(..., ge=1, le=10, description="Relevance/impact score 1-10")
 
+def get_summary_tool_schema():
+    """Returns the tool schema based on PaperSummary model"""
+    return {
+        "name": "summarize_paper",
+        "description": "Analyze an academic paper and provide a comprehensive structured summary",
+        "input_schema": PaperSummary.model_json_schema()
+    }
+
